@@ -14,7 +14,7 @@ npx create-next-app@latest my-app --typescript --tailwind --eslint
 npx shadcn-ui@latest init
 ```
 
--   You will asked to answer those question
+-   You will be asked to answer those questions
 
 1. Would you like to use TypeScript (recommended)? no / yes
 2. Which style would you like to use? › Default
@@ -26,8 +26,22 @@ npx shadcn-ui@latest init
 8. Configure the import alias for utils: › @/lib/utils
 9. Are you using React Server Components? › no / yes
 
+-   Add [clerk](https://clerk.com/) for authentication
+
+```bash
+npm install @clerk/nextjs
+```
+
+-   Set environment keys by creating a `.env` file in the project root directory.
+
+```bash
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_YWxsb3dlZC1waG9lbml4LTM5LmNsZXJrLmFjY291bnRzLmRldiQ
+CLERK_SECRET_KEY=sk_test_FhXjEL7paLLpCSH2JUw6szIvfBhYAH1tZet106iV9n
+```
+
 ## App's structure
 
+```bash
 .
 ├── app
 │ ├── layout.tsx
@@ -50,6 +64,7 @@ npx shadcn-ui@latest init
 ├── postcss.config.js
 ├── tailwind.config.js
 └── tsconfig.json
+```
 
 ## Getting Started
 
