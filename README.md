@@ -1,4 +1,55 @@
-This is a [Next.js](https://nextjs.org/) project inspired from [Antony](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+This is a [Next.js](https://nextjs.org/) project inspired from [Antony](https://www.youtube.com/watch?v=ffJ38dBzrlY&t=1359s) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+ToDo's:
+
+-   install next.js.
+
+```bash
+npx create-next-app@latest my-app --typescript --tailwind --eslint
+```
+
+-   Now install shadcn (Accessible component's library).
+
+```bash
+npx shadcn-ui@latest init
+```
+
+-   You will asked to answer those question
+
+1. Would you like to use TypeScript (recommended)? no / yes
+2. Which style would you like to use? › Default
+3. Which color would you like to use as base color? › Slate
+4. Where is your global CSS file? › › app/globals.css
+5. Do you want to use CSS variables for colors? › no / yes
+6. Where is your tailwind.config.js located? › tailwind.config.js
+7. Configure the import alias for components: › @/components
+8. Configure the import alias for utils: › @/lib/utils
+9. Are you using React Server Components? › no / yes
+
+## App's structure
+
+.
+├── app
+│ ├── layout.tsx
+│ └── page.tsx
+├── components
+│ ├── ui
+│ │ ├── alert-dialog.tsx
+│ │ ├── button.tsx
+│ │ ├── dropdown-menu.tsx
+│ │ └── ...
+│ ├── main-nav.tsx
+│ ├── page-header.tsx
+│ └── ...
+├── lib
+│ └── utils.ts
+├── styles
+│ └── globals.css
+├── next.config.js
+├── package.json
+├── postcss.config.js
+├── tailwind.config.js
+└── tsconfig.json
 
 ## Getting Started
 
