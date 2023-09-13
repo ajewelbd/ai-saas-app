@@ -49,6 +49,7 @@ export default function CodePage() {
             });
 
             setMessages((current) => [...current, userMessage, response.data]);
+            form.reset();
         } catch (error) {
             // ToDo: OpenAI pro model
             console.log("Message error::", error);
