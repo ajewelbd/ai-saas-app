@@ -59,7 +59,7 @@ export default function ConversationPage() {
     return (
         <div>
             <Heading
-                title="Conversation18"
+                title="Conversation"
                 description="Our most advanced conversation model."
                 icon={MessageSquare}
                 iconColor="text-violet-500"
