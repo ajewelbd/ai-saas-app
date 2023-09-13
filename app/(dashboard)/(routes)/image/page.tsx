@@ -67,7 +67,7 @@ export default function ImagePage() {
                 description="Turn your prompt into an image."
                 icon={ImageIcon}
                 iconColor="text-pink-700"
-                bgColor="text-pink-700/10"
+                bgColor="bg-pink-700/10"
             />
             <div className="px-4 lg:px-8">
                 <div>

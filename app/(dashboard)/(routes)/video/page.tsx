@@ -3,7 +3,7 @@
 import * as z from "zod";
 import axios from "axios";
 import Heading from "@/components/heading";
-import { MessageSquare } from "lucide-react";
+import { VideoIcon } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -13,16 +13,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { ChatCompletionMessage } from "openai/resources/chat/index.mjs";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
 import { cn } from "@/lib/utils";
-import UserAvater from "@/components/user-avatar";
-import BotAvater from "@/components/bot-avatar";
 
-export default function ConversationPage() {
+export default function VideoPage() {
     const router = useRouter();
-    const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
+    const [video, setVideo] = useState<string>();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -36,18 +33,11 @@ export default function ConversationPage() {
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         console.log(values);
         try {
-            const userMessage: ChatCompletionMessage = {
-                role: "user",
-                content: values.prompt,
-            };
+            setVideo(undefined);
 
-            const newMessages = [...messages, userMessage];
+            const response = await axios.post("/api/video", values);
 
-            const response = await axios.post("/api/conversation", {
-                messages: newMessages,
-            });
-
-            setMessages((current) => [...current, userMessage, response.data]);
+            setVideo(response.data[0]);
             form.reset();
         } catch (error) {
             // ToDo: OpenAI pro model
@@ -60,11 +50,11 @@ export default function ConversationPage() {
     return (
         <div>
             <Heading
-                title="Conversation"
-                description="Our most advanced conversation model."
-                icon={MessageSquare}
-                iconColor="text-violet-500"
-                bgColor="bg-violet-500/10"
+                title="Video Generation"
+                description="Our most advanced video generation tool"
+                icon={VideoIcon}
+                iconColor="text-orange-700"
+                bgColor="bg-orange-700/10"
             />
             <div className="px-4 lg:px-8">
                 <div>
@@ -103,29 +93,17 @@ export default function ConversationPage() {
                             <Loader />
                         </div>
                     )}
-                    {!messages.length && !isLoading && (
-                        <Empty label="No conversation started." />
+                    {!video && !isLoading && (
+                        <Empty label="No video generated yet." />
                     )}
-                    <div className="flex flex-col-reverse gap-y-4">
-                        {messages.map((message) => (
-                            <div
-                                key={message.content}
-                                className={cn(
-                                    "p-8 w-full flex items-start gap-x-8 rounded-lg",
-                                    message.role === "user"
-                                        ? "bg-white border border-black/10"
-                                        : "bg-muted"
-                                )}
-                            >
-                                {message.role === "user" ? (
-                                    <UserAvater />
-                                ) : (
-                                    <BotAvater />
-                                )}
-                                <p className="text-sm">{message.content}</p>
-                            </div>
-                        ))}
-                    </div>
+                    {video && (
+                        <video
+                            className="w-full aspect-video mt-8 rounded-lg border bg-black"
+                            controls
+                        >
+                            <source src={video} />
+                        </video>
+                    )}
                 </div>
             </div>
         </div>
