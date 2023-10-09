@@ -14,6 +14,7 @@ import {
     VideoIcon,
     Code,
 } from "lucide-react";
+import { FreeCounter } from "@/components/free-counter";
 
 const montserrat = Montserrat({
     weight: "600",
@@ -58,7 +59,11 @@ const routes = [
     },
 ];
 
-export default function Sidebar() {
+type SidebarProps = {
+    apiLimitCount: number
+}
+
+export default function Sidebar({ apiLimitCount }: SidebarProps) {
     const pathname = usePathname();
 
     return (
@@ -102,6 +107,7 @@ export default function Sidebar() {
                     ))}
                 </div>
             </div>
+            <FreeCounter apiLimitCount={apiLimitCount}/>
         </div>
     );
 }
