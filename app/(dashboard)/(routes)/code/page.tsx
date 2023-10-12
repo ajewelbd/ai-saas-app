@@ -20,8 +20,10 @@ import { cn } from "@/lib/utils";
 import UserAvater from "@/components/user-avatar";
 import BotAvater from "@/components/bot-avatar";
 import ReactMarkdown from "react-markdown";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 export default function CodePage() {
+    const proModal = useProModal();
     const router = useRouter();
     const [messages, setMessages] = useState<ChatCompletionMessage[]>([]);
 
@@ -50,9 +52,10 @@ export default function CodePage() {
 
             setMessages((current) => [...current, userMessage, response.data]);
             form.reset();
-        } catch (error) {
-            // ToDo: OpenAI pro model.
-            console.log("Message error::", error);
+        } catch (error: any) {
+            if(error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }

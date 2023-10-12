@@ -25,8 +25,10 @@ import {
 } from "@/components/ui/select";
 import { Card, CardFooter } from "@/components/ui/card";
 import Image from "next/image";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 export default function ImagePage() {
+    const proModal = useProModal();
     const router = useRouter();
     const [images, setImages] = useState<string[]>([]);
 
@@ -52,9 +54,10 @@ export default function ImagePage() {
 
             setImages(urls);
             form.reset();
-        } catch (error) {
-            // ToDo: OpenAI pro model
-            console.log("Message error::", error);
+        } catch (error: any) {
+            if(error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }
