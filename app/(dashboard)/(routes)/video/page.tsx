@@ -15,8 +15,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
-import { cn } from "@/lib/utils";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 export default function VideoPage() {
     const proModal = useProModal();
@@ -33,7 +33,6 @@ export default function VideoPage() {
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
         try {
             setVideo(undefined);
 
@@ -42,8 +41,10 @@ export default function VideoPage() {
             setVideo(response.data[0]);
             form.reset();
         } catch (error: any) {
-            if(error?.response?.status === 403) {
+            if (error?.response?.status === 403) {
                 proModal.onOpen();
+            } else {
+                toast.error("Something wen wrong!");
             }
         } finally {
             router.refresh();
