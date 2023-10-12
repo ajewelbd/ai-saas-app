@@ -21,6 +21,7 @@ import UserAvater from "@/components/user-avatar";
 import BotAvater from "@/components/bot-avatar";
 import ReactMarkdown from "react-markdown";
 import { useProModal } from "@/hooks/use-pro-modal";
+import { toast } from "react-hot-toast";
 
 export default function CodePage() {
     const proModal = useProModal();
@@ -37,7 +38,6 @@ export default function CodePage() {
     const isLoading = form.formState.isSubmitting;
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
-        console.log(values);
         try {
             const userMessage: ChatCompletionMessage = {
                 role: "user",
@@ -53,8 +53,10 @@ export default function CodePage() {
             setMessages((current) => [...current, userMessage, response.data]);
             form.reset();
         } catch (error: any) {
-            if(error?.response?.status === 403) {
+            if (error?.response?.status === 403) {
                 proModal.onOpen();
+            } else {
+                toast.error("Something wen wrong!");
             }
         } finally {
             router.refresh();
