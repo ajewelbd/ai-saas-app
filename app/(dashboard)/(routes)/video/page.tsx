@@ -16,8 +16,10 @@ import { useState } from "react";
 import Empty from "@/components/empty";
 import Loader from "@/components/loader";
 import { cn } from "@/lib/utils";
+import { useProModal } from "@/hooks/use-pro-modal";
 
 export default function VideoPage() {
+    const proModal = useProModal();
     const router = useRouter();
     const [video, setVideo] = useState<string>();
 
@@ -39,9 +41,10 @@ export default function VideoPage() {
 
             setVideo(response.data[0]);
             form.reset();
-        } catch (error) {
-            // ToDo: OpenAI pro model
-            console.log("Message error::", error);
+        } catch (error: any) {
+            if(error?.response?.status === 403) {
+                proModal.onOpen();
+            }
         } finally {
             router.refresh();
         }
