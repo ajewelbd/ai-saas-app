@@ -47,6 +47,7 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
+    "encoding": "^0.1.13",
     "prisma": "^5.3.1"
   }
 }
