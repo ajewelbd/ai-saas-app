@@ -56,7 +56,7 @@ export default function CodePage() {
             if (error?.response?.status === 403) {
                 proModal.onOpen();
             } else {
-                toast.error("Something wen wrong!");
+                toast.error("Something went wrong!");
             }
         } finally {
             router.refresh();
